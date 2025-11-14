@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker/pages/secondary/userProfile.dart';
+import 'package:habit_tracker/pages/secondary/user_profile.dart';
 import 'package:habit_tracker/theme/theme_controller.dart';
 
 class SettingsPage extends StatelessWidget {

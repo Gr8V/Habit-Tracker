@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/globals/data.dart';
+import 'package:habit_tracker/services/provider.dart';
+import 'package:provider/provider.dart';
 
 class AddHabit extends StatefulWidget {
   const AddHabit({super.key});
@@ -8,6 +11,7 @@ class AddHabit extends StatefulWidget {
 }
 
 class _AddHabitState extends State<AddHabit> {
+  final habitNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     //theme
@@ -54,6 +58,50 @@ class _AddHabitState extends State<AddHabit> {
           ),
         ),
       ),
+      body:  SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Habit Name
+              TextField(
+                controller: habitNameController,
+                decoration: InputDecoration(
+                  labelText: 'Habit Name',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+              ),
+              const SizedBox(height: 16),
+              // Save Button
+              ElevatedButton(
+                onPressed: () async {
+                  final provider = Provider.of<DataProvider>(context, listen: false);
+                  provider.updateHabit(todaysDate, habitNameController.text, false);
+
+                    // Optional: clear fields after adding
+                    habitNameController.clear();
+                    if (!context.mounted) return;
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Habit added successfully!')),
+                    );
+                    Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: const Text(
+                  'Add Habit',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ],
+          ),
+        ),
+      )
     );
   }
 }

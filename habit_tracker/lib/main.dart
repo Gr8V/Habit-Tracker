@@ -2,13 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker/pages/home_page.dart';
 import 'package:habit_tracker/pages/insights.dart';
 import 'package:habit_tracker/pages/settings.dart';
+import 'package:habit_tracker/services/provider.dart';
 import 'package:habit_tracker/theme/app_theme.dart';
 import 'package:habit_tracker/theme/theme_controller.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => DataProvider()..loadHabits())
+      ],
+      child: const MyApp(),
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
