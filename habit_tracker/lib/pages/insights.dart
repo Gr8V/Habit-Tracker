@@ -49,6 +49,77 @@ class Insights extends StatelessWidget {
           ),
         ),
       ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              StreakCard(streakCount: 5)
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class StreakCard extends StatelessWidget {
+  final int streakCount;
+
+  const StreakCard({
+    super.key,
+    required this.streakCount,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                color: Colors.orange.withValues(alpha: 0.15),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.local_fire_department_rounded,
+                color: Colors.orange,
+                size: 32,
+              ),
+            ),
+      
+            const SizedBox(width: 16),
+      
+            // Text Section
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Current Streak",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey,
+                  ),
+                ),
+                Text(
+                  "$streakCount days",
+                  style: const TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
